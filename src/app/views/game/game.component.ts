@@ -1,0 +1,151 @@
+import { Component, OnInit ,ElementRef, ViewChildren,QueryList,HostListener} from '@angular/core';
+import { GameService} from '../../game.service';
+
+
+import { Router} from '@angular/router';
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37
+}
+@Component({
+  selector: 'GameComponent',
+  templateUrl: './game.component.html'
+})
+
+export class GameComponent implements OnInit {
+  constructor(private service:GameService, private routers:Router ) { }
+@HostListener('window:keyup', ['$event']) w(event: KeyboardEvent) {
+
+
+    if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+      this.onClick('right');
+     
+    }
+
+    if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+      this.onClick('left');
+    }
+  }
+
+  eventText = '';
+  level=this.service.level+1;
+pointer=2;
+  btnhide=false;
+seconds=20;
+intervalId: number = 0;
+arr=[];
+arr2=[]
+movingnumber='';
+xaxis=1;
+yaxis=8;
+sum=0;
+  ngOnInit() {
+  
+  
+   this.sum= Math.floor(Math.random() * 10) + 2 ;
+
+  const b= Math.floor(Math.random() * (this.sum-1)) + 1 ;
+
+for(var i=0; i<7;i++){
+  const g= Math.floor(Math.random() * 10) + 1 ;
+  this.arr.push(g);
+}
+  const a=this.sum-b;
+
+const rindex=  Math.floor(Math.random() * (this.arr.length)) + 0 ;
+this.arr[rindex]=a;
+const rindex2=  Math.floor(Math.random() * (this.arr.length)) + 0 ;
+this.arr[rindex2]=b;
+
+
+this.movingDown();
+  }
+movingDown(){
+ 
+  var _this=this;
+var j=0;
+
+
+var refreshId = setInterval(function(){
+ _this.xaxis=1;
+_this.yaxis=0;
+_this.xaxis= Math.floor(Math.random() * 4) + 1 ;
+//console.log('xaxis'+_this.xaxis);
+if(j>6){
+     clearInterval(refreshId);
+     var ans=0;
+     for(var k=0;k<_this.arr2.length;k++)
+     ans=ans+_this.arr2[k];
+    if(_this.sum==ans){
+      _this.service.anstext='You Win';
+      _this.service.score++;
+    }
+    else{
+      _this.service.anstext='You Lose';
+    }
+  _this.service.level++;
+    _this.routers.navigate(['/timer']);
+   }
+  _this.movingnumber=_this.arr[j];
+  _this.arr[j]='';
+console.log('j'+j);
+  j++;
+   myLoop();
+   
+},1750)
+
+function myLoop():void {    
+  setTimeout(function() {  
+_this.yaxis++;
+//console.log('yaxis'+_this.yaxis);
+if(_this.yaxis<6){
+myLoop();
+}
+else{
+  if(_this.xaxis==_this.pointer)
+  _this.arr2.push(_this.movingnumber);
+}
+  },250)
+  
+  }
+
+}
+
+  counter(i: number) {
+    return new Array(i);
+} 
+
+
+private countDown(): void {
+
+    this.intervalId = window.setInterval(() => {
+      this.seconds -= 0.1;
+      if ((this.seconds).toFixed(1) === '0.1') {
+        this.service.level++;
+        this.service.textMaker("You didn't attempted");
+         this.clearTimer();
+        this.routers.navigate(['/timer'])
+      } 
+    }, 100);
+  }
+
+  
+clearTimer(): void { clearInterval(this.intervalId); }
+
+onClick(dir:string){
+  console.log(event);
+  if(dir=='left'){
+if(this.pointer!=1){
+this.pointer--
+}
+  }
+  else{
+if(this.pointer!=4){
+this.pointer++
+}
+  }
+}
+
+
+}
