@@ -89,7 +89,7 @@ if(j>6){
    }
   _this.movingnumber=_this.arr[j];
   _this.arr[j]='';
-console.log('j'+j);
+//console.log('j'+j);
   j++;
    myLoop();
    
@@ -134,7 +134,7 @@ private countDown(): void {
 clearTimer(): void { clearInterval(this.intervalId); }
 
 onClick(dir:string){
-  console.log(event);
+  //console.log(event);
   if(dir=='left'){
 if(this.pointer!=1){
 this.pointer--
