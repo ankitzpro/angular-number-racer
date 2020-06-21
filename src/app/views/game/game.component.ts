@@ -38,17 +38,20 @@ arr=[];
 arr2=[]
 movingnumber='';
 xaxis=1;
-yaxis=8;
+yaxis=this.service.noofdigits+1;
 sum=0;
   ngOnInit() {
   
   
-   this.sum= Math.floor(Math.random() * 10) + 2 ;
+   this.sum= Math.floor(Math.random() * this.service.rangeend) + this.service.rangestart ;
 
-  const b= Math.floor(Math.random() * (this.sum-1)) + 1 ;
-
-for(var i=0; i<7;i++){
-  const g= Math.floor(Math.random() * 10) + 1 ;
+  var b= Math.floor(Math.random() * (this.sum-1)) + this.service.rangestart ;
+  if(this.service.level>5)
+   b= Math.floor(Math.random() * (this.service.rangeend)) + this.service.rangestart;
+for(var i=0; i<this.service.noofdigits;i++){
+  var g= Math.floor(Math.random() * this.service.rangeend) + this.service.rangestart ;
+   if(this.service.level>5)
+   b= Math.floor(Math.random() * (this.service.rangeend)) - this.service.rangestart;
   this.arr.push(g);
 }
   const a=this.sum-b;
@@ -72,7 +75,7 @@ var refreshId = setInterval(function(){
 _this.yaxis=0;
 _this.xaxis= Math.floor(Math.random() * 4) + 1 ;
 //console.log('xaxis'+_this.xaxis);
-if(j>6){
+if(j>_this.service.noofdigits-1){
      clearInterval(refreshId);
      var ans=0;
      for(var k=0;k<_this.arr2.length;k++)
@@ -84,7 +87,7 @@ if(j>6){
     else{
       _this.service.anstext='You Lose';
     }
-  _this.service.level++;
+  _this.service.levelUpdate();
     _this.routers.navigate(['/timer']);
    }
   _this.movingnumber=_this.arr[j];
@@ -93,20 +96,20 @@ if(j>6){
   j++;
    myLoop();
    
-},1750)
+},_this.service.secperlevel)
 
 function myLoop():void {    
   setTimeout(function() {  
 _this.yaxis++;
 //console.log('yaxis'+_this.yaxis);
-if(_this.yaxis<6){
+if(_this.yaxis<_this.service.noofdigits){
 myLoop();
 }
 else{
   if(_this.xaxis==_this.pointer)
   _this.arr2.push(_this.movingnumber);
 }
-  },250)
+  },_this.service.secperdigit)
   
   }
 
@@ -117,21 +120,7 @@ else{
 } 
 
 
-private countDown(): void {
 
-    this.intervalId = window.setInterval(() => {
-      this.seconds -= 0.1;
-      if ((this.seconds).toFixed(1) === '0.1') {
-        this.service.level++;
-        this.service.textMaker("You didn't attempted");
-         this.clearTimer();
-        this.routers.navigate(['/timer'])
-      } 
-    }, 100);
-  }
-
-  
-clearTimer(): void { clearInterval(this.intervalId); }
 
 onClick(dir:string){
   //console.log(event);
