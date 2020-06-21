@@ -5,14 +5,14 @@
   <div class="row">
   <div *ngFor="let in of counter(6) ;let i = index" style="width:15%;padding-left:15px">
     <div *ngFor="let in of arr ;let j = index">
-<div *ngIf="i==0" style="width:40px;height:40px; padding:1px" class="btn btn-secondary m-1" data-toggle="tooltip" data-placement="top">{{in}}</div>
+<div *ngIf="i==0" style="width:40px;height:40px; padding-left:1px" class="btn btn-secondary m-1" data-toggle="tooltip" data-placement="top">{{in}}</div>
 
 <div *ngIf="i>0 && i<5">
-  <div *ngIf="xaxis!=i || yaxis!=j" style="width:40px;height:40px;padding:1px;color:white" class="btn  m-1" data-toggle="tooltip" data-placement="top">{{movingnumber}}</div>
-  <div *ngIf="xaxis==i && yaxis==j" style="width:40px;height:40px;padding:1px" class="btn btn-primary m-1" data-toggle="tooltip" data-placement="top">{{movingnumber}}</div>
+  <div *ngIf="xaxis!=i || yaxis!=j" style="width:40px;height:40px;padding-left:1px;color:white" class="btn  m-1" data-toggle="tooltip" data-placement="top">{{movingnumber}}</div>
+  <div *ngIf="xaxis==i && yaxis==j" style="width:40px;height:40px;padding-left:1px" class="btn btn-primary m-1" data-toggle="tooltip" data-placement="top">{{movingnumber}}</div>
 </div>
 
-<div *ngIf="i==5" style="width:40px;height:40px;padding:1px" class="btn btn-secondary m-1" data-toggle="tooltip" data-placement="top">{{arr2[j]}}</div>
+<div *ngIf="i==5" style="width:40px;height:40px;padding-left:1px" class="btn btn-secondary m-1" data-toggle="tooltip" data-placement="top">{{arr2[j]}}</div>
 
 </div>
   </div>
