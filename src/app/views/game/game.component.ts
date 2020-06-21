@@ -81,11 +81,11 @@ if(j>_this.service.noofdigits-1){
      for(var k=0;k<_this.arr2.length;k++)
      ans=ans+_this.arr2[k];
     if(_this.sum==ans){
-      _this.service.anstext='You Win';
+      _this.service.textMaker('You Win');
       _this.service.score++;
     }
     else{
-      _this.service.anstext='You Lose';
+      _this.service.textMaker('You Lose');
     }
   _this.service.levelUpdate();
     _this.routers.navigate(['/timer']);

@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Output,EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
+@Output() scoreData:EventEmitter<any>= new EventEmitter(); 
   level=0;
 
 anstext='';
@@ -17,8 +18,9 @@ secperdigit=300;
 textMaker(text:string){
   this.anstext=text;
 
-  if(this.level==9)
+  if(this.level==9){
   this.anstext='Your Final Score :'+this.score;
+  }
 }
 
 levelUpdate(){
@@ -52,5 +54,8 @@ levelUpdate(){
     this.secperdigit=200;
     this.secperlevel=1500;
   }
+}
+  sendValues(){
+  this.scoreData.emit(this.score);
 }
 }

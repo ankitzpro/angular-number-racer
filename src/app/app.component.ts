@@ -1,7 +1,8 @@
-import { Component,HostListener } from '@angular/core';
+import { Component,HostListener,Input,OnInit } from '@angular/core';
+import { Router} from '@angular/router';
+import { GameService} from './game.service';
 
-import { Router} from '@angular/router'
-
+ 
  
 @Component({
   selector: 'my-app',
@@ -10,9 +11,9 @@ import { Router} from '@angular/router'
 })
 export class AppComponent  {
 
-  
+@Input() gameData:any;
 
-  constructor(private routers:Router ){
+  constructor(private routers:Router,private service:GameService ){
   }
  ngOnInit() {
 
